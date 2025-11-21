@@ -47,17 +47,18 @@ public class PlatformerMovement : MonoBehaviour
     {
         if (velocity.y < 0)
         { 
-            // Has fallen. Play fall sound and/or trigger fall animation etc
+
         }
         else
         {
-            // Has jumped. Play jump sound and/or trigger jump animation etc
+
         }
     }
     // Check if character gained contact with ground this frame
     else if (wasGrounded == false && isGrounded == true)
     {
         jumpReleased = false;
+        animator.SetBool("isGrounded", true);
         // Has landed, play landing sound and trigger landing animation
     }
     wasGrounded = isGrounded;
@@ -77,6 +78,8 @@ public class PlatformerMovement : MonoBehaviour
         rb.linearVelocity = velocity;
         
         animator.SetFloat("xSpeed", Mathf.Abs(rb.linearVelocityX));
+        animator.SetFloat("ySpeed", rb.linearVelocityY);
+        animator.SetBool("isGrounded", isGrounded);
         if (isGrounded && Mathf.Abs(rb.linearVelocityX) > 0)
         {
             particleSystem.Play();
